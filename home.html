@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixelry Site</title>
-    
-    <script>
-        if (!/Mobi|Android/i.test(navigator.userAgent)) {
-            document.addEventListener("DOMContentLoaded", function () {
-                var content = document.getElementById("androidContent");
-                if (content) {
-                    content.style.display = "none";
-                    alert("use android")
-                }
-            });
-        }
-    </script>
-
+    <title>Discord 2.0</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            background-color: #f0f0f0;
-        }
-
-        .container {
-            max-width: 1024px;
+        #chat-container {
+            width: 300px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .message {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="androidContent">
-  <h1>android is a cool os</h1>
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button id="send-button">Send</button>
     </div>
+
+    <script>
+        const messageInput = document.getElementById("message-input");
+        const sendButton = document.getElementById("send-button");
+        const chatMessages = document.getElementById("chat-messages");
+
+        sendButton.addEventListener("click", () => {
+            const message = messageInput.value;
+            if (message) {
+                sendMessage(message);
+                messageInput.value = "";
+            }
+        });
+
+        function sendMessage(message) {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+        }
+
+        messageInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                sendButton.click();
+            }
+        });
+    </script>
 </body>
 </html>
